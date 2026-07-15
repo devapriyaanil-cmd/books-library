@@ -1,4 +1,4 @@
-name: Deploy React App
+name: CI Test
 
 on:
   push:
@@ -7,15 +7,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4   # upgrade to v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - run: npm install
-      - run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          node-version: 24          # explicitly set Node.js 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
