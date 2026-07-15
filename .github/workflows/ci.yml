@@ -1,0 +1,16 @@
+name: CI Test
+
+on:
+  push:
+    branches: [ "main" ]   # Runs when you push to main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a test script
+        run: echo "🎉 GitHub Actions is working!"
